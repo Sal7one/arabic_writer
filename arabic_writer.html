@@ -36,7 +36,6 @@ to-do:
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
   <title>Arabic Writer 1.4.4 الكاتب العربي</title>
 <script type="text/javascript">
-<!--
 //default Values:
 var defLang="en";      //set default language:  ["ar":arabic, "fa":farsi, "en":english]
 var defNumbs=defLang;  //set default language:  ["ar":arabic, "fa":farsi, "en":english]
@@ -44,7 +43,6 @@ var e_harakat=1;       //enable/disable arabic harakat: [0, 1]
 var dir="rtl";
 var numbers = {
   ar: "٠١٢٣٤٥٦٧٨٩",
-  fa: "۰۱۲۳۴۵۶۷۸۹",
   en: "0123456789"
 }
 var outputNumbers = numbers[defLang];
@@ -283,6 +281,7 @@ function selectit() {    //a function to select the text in the output box
   output=document.getElementById('outbox');
   output.focus();
   output.select();
+  document.execCommand('copy')
 }
 
 function setNumbers(lang) {   //switching Arabic Numbers on and off
@@ -333,22 +332,20 @@ function setLang(langid) {    //a function to change the language of the interfa
   hide("faAbout");
   hide("enAbout");
   if (langid=="ar") {  //adding Arabic Language UI variables
-    numbs="الارقام";
-    hars0="الحركات غير مفعلة";
-    hars1="الحركات مفعلة";
+    numbs="نوع الارقام ";
+    hars0="ما يدعم الحركات ";
+    hars1="يدعم الحركات ";
     dir0="اتجاه النص: من اليسار الى اليمين";
     dir1="اتجاه النص: من اليمين الى اليسار";
     setHTML("box1info","النص الاصلي");
     setHTML("box2info","النص الناتج");
-    setValue("aboutpop","عن البرنامج");
-    setValue("languagepop"," اللغة ");
     setValue("keyboardpop","لوحة المفاتيح العربية");
     setValue("kspace","مسافة");
     setValue("ktab","فاصلة");
     setValue("kbspace","تراجع");
     setValue("deletetxt","حذف النص");
-    setValue("selecttxt","تظليل النص المعالج");
-    setValue("processtxt","معالجة النص");
+    setValue("selecttxt","نسخ النص  ");
+    setValue("processtxt","تحويل النص");
     show("arAbout");
   } else if (langid=="en") {  //adding English Language UI variables
     numbs="Numbers";
@@ -377,7 +374,6 @@ function setLang(langid) {    //a function to change the language of the interfa
     setHTML("box1info","متن خود را در این قسمت بنویسید");
     setHTML("box2info","پس از پایان نوشتن, روی دکمه‌ی «پردازش» کلیک کنید, سپس متن خروجی را از این قسمت بردارید");
     setValue("aboutpop","درباره");
-    setValue("languagepop","زبان");
     setValue("keyboardpop","صفحه‌کلید عربی");
     setValue("kspace","فاصله");
     setValue("ktab","Tab");
@@ -393,12 +389,12 @@ function setLang(langid) {    //a function to change the language of the interfa
   switch_dir();switch_dir();
   hide("lang");
 }
--->
 </script>
   <style type="text/css">
-  body {background-color: #f4f4f4;}  
+  body {background-color: #f4f4f4;
+  }  
   .big {font-weight: bold;}
-  .kbrow {padding: 3px 0;}
+  .kbrow {padding: 8px 0;}
   .flat {
     color: #444444;
     background-color: #E1E1E1;
@@ -423,7 +419,9 @@ function setLang(langid) {    //a function to change the language of the interfa
   .btn50 {width: 8.1%;}
   .btn100 {width: 15.2%;}
   .btn150 {width: 22.5%;}
-  .btn200 {width: 29.7%;}
+  .btn200 {width: 29.7%;
+    margin: 3px;
+  }
   .inpbox, .outbox {
     border:1px solid #c3c3c3;
     width: 99%;
@@ -431,6 +429,12 @@ function setLang(langid) {    //a function to change the language of the interfa
     height: 400px;
     background-color: #ffffff;
     color: #000000;
+  }
+  .steps{
+    direction: rtl;
+    float: right;
+    color: #000000;
+    font-weight: bolder;
   }
   table, textarea, input, div, p, ul {
     font-family: Arial;
@@ -476,7 +480,7 @@ function setLang(langid) {    //a function to change the language of the interfa
   @media (min-width: 1200px) { body {font-size: 1.5rem;} }
   </style>
 </head>
-<body onload="setLang(defLang);">  <!-- after page is loaded, apply the default language -->
+<body onload="setLang('ar');">  <!-- after page is loaded, apply the default language -->
   <form name="writer" id="writer" action="#" class="center">
     <table>
       <tr>
@@ -512,18 +516,28 @@ function setLang(langid) {    //a function to change the language of the interfa
     <br />
 
     <!-- Start Control Buttons -->
+    <div class="steps"  >
+      الخطوات <br>
+      1 - اكتب الكلام الي تبيه بالمربع اليمين<br>
+      2 - اضغط تحويل النص <br>
+      3 - اضغط نسخ النص<br>
+      <br>
+      ملحوظة: اسم الخط الي تستخدمه بالبرنامج الازرق<br>
+      Arial <br>
+      حطه ثم الصق الكلام <br>
+      paste
+      
+    </div>
     <div class="kbrow">
-      <input id="deletetxt" type="reset" value=" " class="flat btn200" />
       <input id="selecttxt" onclick="selectit();" type="button" value=" " class="flat btn200" />
       <input id="processtxt" onclick="ProcessInput();" type="button" value=" " class="flat btn200" />
+      <input id="deletetxt" type="reset" value=" " class="flat btn200" />
     </div>
     <div class="kbrow">
       <input id="xnumbers" onclick="show('numbers');" type="button" value=" " class="flat btn200" />
-      <input id="languagepop" onclick="show('lang');" type="button" value=" " class="flat btn200" />
       <input id="xharakat" onclick="switch_harakat();" type="button" value=" " class="flat btn200" />
     </div>
     <div class="kbrow">
-      <input id="aboutpop" onclick="show('about');" type="button" value=" " class="flat btn200" />
       <input id="keyboardpop" onclick="show('keyboard');" type="button" value=" " class="flat btn200" />
       <input id="xdir" onclick="switch_dir();" type="button" value=" " class="flat btn200" />
     </div>
@@ -533,14 +547,12 @@ function setLang(langid) {    //a function to change the language of the interfa
     <div id="lang" class="window center lang ar">
       <input onclick="hide('lang');" type="button" value="X" class="flat close" />
       <input onclick="setLang('ar');" type="button" value="العربية" class="flat btn100" />
-      <input onclick="setLang('fa');" type="button" value="فارسي" class="flat btn100" />
       <input onclick="setLang('en');" type="button" value="English" class="flat btn100" />
     </div>
     <div id="numbers" class="window center lang ar">
       <input onclick="hide('numbers');" type="button" value="X" class="flat close" />
-      <input onclick="setNumbers('ar');" type="button" value="العربية" class="flat btn100" />
-      <input onclick="setNumbers('fa');" type="button" value="فارسي" class="flat btn100" />
-      <input onclick="setNumbers('en');" type="button" value="English" class="flat btn100" />
+      <input onclick="setNumbers('ar');" type="button" value="ارقام عربية" class="flat btn100" />
+      <input onclick="setNumbers('en');" type="button" value="ارقام انقليزية" class="flat btn100" />
     </div>
     <!-- End Language Window-->
 
