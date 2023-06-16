@@ -25,20 +25,6 @@ Change Log:         added support for urdu and kurdish characters
 test string1:      السلام عليكم اخي العزيز how are you ان شاء الله بخير .. ما شفناك من 2007 شو عم تعمل؟؟
 test string2:      ذَلِكَ الْكِتَابُ لاَ رَيْبَ فِيهِ هُدًى لِّلْمُتَّقِينَ
 
-to-do:
-
-ڠ ‍ڠ ڠ‍‍ ڠ
-ڽ  پـ  ـپـ  ـڽ  nyaa
-ـۏ x ۏ    ۏ  vaaa
-
-ں
-ﮞ ﮟ
-ێ
-ە
-ڵ
-ڕ
-
-
 -->
 <html>
 <head>
@@ -234,6 +220,13 @@ function ProcessInput() {   //the processing function
   frm.outbox.value=old+frm.outbox.value;  //put together the old text and the last sentence
 }
 
+function reverseInput(){
+  frm=document.getElementById('writer');
+  frm.outbox.value="";
+  const ogString =frm.inpbox.value;
+  const reversedString = ogString.split(" ").reverse().join(" ");
+  frm.outbox.value= reversedString;
+}
 function addChar(chr) {  //add arabic chars (change to Unicode)
   frm=document.getElementById('writer');
   frm.outbox.value=chr+frm.outbox.value;
@@ -338,7 +331,6 @@ function setLang(langid) {    //a function to change the language of the interfa
   defLang=langid;
   //hide all About windows, to determine which one to show now.
   hide("arAbout");
-  hide("faAbout");
   hide("enAbout");
   if (langid=="ar") {  //adding Arabic Language UI variables
     numbs="نوع الارقام ";
@@ -355,6 +347,7 @@ function setLang(langid) {    //a function to change the language of the interfa
     setValue("deletetxt","حذف النص");
     setValue("selecttxt","نسخ النص  ");
     setValue("processtxt","تحويل النص");
+    setValue("reversetxt","عكس ترتيب الكلمات");
     show("arAbout");
   } else if (langid=="en") {  //adding English Language UI variables
     numbs="Numbers";
@@ -373,24 +366,8 @@ function setLang(langid) {    //a function to change the language of the interfa
     setValue("deletetxt","Clear Fields");
     setValue("selecttxt","Select Output");
     setValue("processtxt","Process Input");
+    setValue("reversetxt","Reverse Input");
     show("enAbout");
-  } else if (langid=="fa") {  //adding Persian Language UI variables
-    numbs="اعداد";
-    hars0="اعراب غیرفعال";
-    hars1="اعراب فعال";
-    dir0="جهت: چپ به راست";
-    dir1="جهت: راست به چپ";
-    setHTML("box1info","متن خود را در این قسمت بنویسید");
-    setHTML("box2info","پس از پایان نوشتن, روی دکمه‌ی «پردازش» کلیک کنید, سپس متن خروجی را از این قسمت بردارید");
-    setValue("aboutpop","درباره");
-    setValue("keyboardpop","صفحه‌کلید عربی");
-    setValue("kspace","فاصله");
-    setValue("ktab","Tab");
-    setValue("kbspace","BackSpace");
-    setValue("deletetxt","خالی‌کردن فیلدها");
-    setValue("selecttxt","انتخاب خروجی");
-    setValue("processtxt","پردازش");
-    show("faAbout");
   }
   //add new language here!, copy paste the English part (20 lines above this one), and then edit it.
   setNumbers(langid);
@@ -524,23 +501,13 @@ function setLang(langid) {    //a function to change the language of the interfa
     </table>
     <br />
 
-    <!-- Start Control Buttons -->
-    <div class="steps"  >
-      الخطوات <br>
-      1 - اكتب الكلام الي تبيه بالمربع اليمين<br>
-      2 - اضغط تحويل النص <br>
-      3 - اضغط نسخ النص<br>
-      <br>
-      ملحوظة: اسم الخط الي تستخدمه بالبرنامج الازرق<br>
-      Arial <br>
-      حطه ثم الصق الكلام <br>
-      paste
-      
-    </div>
+
     <div class="kbrow">
-      <input id="selecttxt" onclick="selectit();" type="button" value=" " class="flat btn200" />
+      <input id="reversetxt" onclick="reverseInput();" type="button" value=" " class="flat btn200" />
       <input id="processtxt" onclick="ProcessInput();" type="button" value=" " class="flat btn200" />
-      <input id="deletetxt" type="reset" value=" " class="flat btn200" />
+      <br>
+      <input id="selecttxt" onclick="selectit();" type="button" value=" " class="flat btn200" />
+      <input id="deletetxt" type="reset" value=" " class="flat btn200" style=" color:black; background-color: rgba(227, 12, 12, 0.832);" />
     </div>
     <div class="kbrow">
       <input id="xnumbers" onclick="show('numbers');" type="button" value=" " class="flat btn200" />
@@ -564,6 +531,15 @@ function setLang(langid) {    //a function to change the language of the interfa
       <input onclick="setNumbers('en');" type="button" value="ارقام انقليزية" class="flat btn100" />
     </div>
     <!-- End Language Window-->
+        <!-- Start Control Buttons -->
+        <div class="steps"  >
+          1 - اكتب بمربع النص الأصلي <br>
+          2 - اضغط تحويل النص <br>
+          3 - اضغط نسخ النص<br>
+          <br>
+          عكس ترتيب الكلمات مفيد في المواقع الي تدعم حروف عربية لكن مو أسلوب الكتابة
+          مثال: FlowCv.com
+        </div>
 
     <!-- Start Arabic Keyboard Window-->
     <div id="keyboard" class="keyboard window center ar">
