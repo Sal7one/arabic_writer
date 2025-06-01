@@ -11,9 +11,9 @@ OG Project belong to [omar84](https://github.com/omar84/arabic_writer) Thanks fo
 
 Mostly Translation and deletion of unnecessary confusing front-end buttons (For a kid )
 
-# # Original Readme:
 
 
+- Original Readme:
   # Arabic Writer
 
   An HTML/JS Web App for converting Arabic text to Unicode, to support software with no out-of-the-box Arabic/Farsi Language support
