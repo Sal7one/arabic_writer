@@ -1,5 +1,6 @@
 # Original Project and credits
-OG Projects belong to [omar84](https://github.com/omar84/arabic_writer)
+OG Project belong to [omar84](https://github.com/omar84/arabic_writer) Thanks for the hardwork and amazing tool!
+
 
 # Live website
 [Sal7one Github.io/Arabic_Writer](https://Sal7one.github.io/arabic_writer/)
